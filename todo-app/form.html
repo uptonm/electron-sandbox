@@ -1,0 +1,14 @@
+<head> </head>
+<body>
+  <form action="">
+    <div>
+      <label for=""> Enter your todo </label> <input autofocus type="text" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <script>
+    document.querySelector("form").addEventListener("submit", event => {
+      event.preventDefault();
+    });
+  </script>
+</body>
