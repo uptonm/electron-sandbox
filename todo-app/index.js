@@ -1,6 +1,6 @@
 const electron = require("electron");
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow, addWindow;
 app.on("ready", () => {
@@ -19,7 +19,15 @@ function createAddWindow() {
     title: "Add New Todo"
   });
   addWindow.loadURL(`file://${__dirname}/form.html`);
+  addWindow.on("closed", () => {
+    addWindow = null; // Remove memory reference for garbage collection
+  });
 }
+
+ipcMain.on("todo:add", (event, todo) => {
+  mainWindow.webContents.send("todo:add", todo);
+  addWindow.close();
+});
 
 const menuTemplate = [
   {
