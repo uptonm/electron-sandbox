@@ -40,6 +40,13 @@ const menuTemplate = [
         }
       },
       {
+        label: "Clear Todos",
+        accelerator: process.platform === "darwin" ? "Command+F" : "Ctrl+F",
+        click() {
+          mainWindow.webContents.send("todo:clear");
+        }
+      },
+      {
         label: "Quit",
         accelerator: process.platform === "darwin" ? "Command+Q" : "Ctrl+Q",
         click() {
@@ -65,6 +72,9 @@ if (process.env.NODE_ENV !== "production") {
         click(item, focusedWindow) {
           focusedWindow.toggleDevTools();
         }
+      },
+      {
+        role: "reload"
       }
     ]
   });
