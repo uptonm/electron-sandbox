@@ -18,10 +18,19 @@ app.on("ready", () => {
     process.platform === "win32" ? "windows-icon.png" : "iconTemplate.png";
   const iconPath = path.join(__dirname, `./src/assets/${iconName}`);
   tray = new Tray(iconPath);
-  tray.on("click", () => {
+  tray.on("click", (event, bounds) => {
+    const { x, y } = bounds;
+    const { height, width } = mainWindow.getBounds();
+    const yPos = process.platform === "darwin" ? y : y - height;
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
+      mainWindow.setBounds({
+        x: x - width / 2,
+        y: yPos,
+        height: height,
+        width: width
+      });
       mainWindow.show();
     }
   });
