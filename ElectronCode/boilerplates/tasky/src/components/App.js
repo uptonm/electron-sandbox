@@ -43,19 +43,13 @@ class App extends Component {
   // -------- electron event handlers -----------------
   // --------------------------------------------------
 
-  onAppClose = () => {
+  onAppClose = () => {};
 
-  };
+  updateTrayText = title => {};
 
-  updateTrayText = title => {
+  timerHasExpired = () => {};
 
-  };
-
-  timerHasExpired = () => {
-
-  };
-
-  // -------- end of electron event handerls ----------
+  // -------- end of electron event handlers ----------
 
   componentDidMount() {
     this.initializeTimer();
