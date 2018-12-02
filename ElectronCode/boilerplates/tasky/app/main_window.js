@@ -9,9 +9,15 @@ class MainWindow extends BrowserWindow {
       frame: false,
       resizable: false,
       show: false,
-      skipTaskbar: true
+      skipTaskbar: true,
+      webPreferences: {
+        backgroundThrottling: false
+      }
     });
-    this.on("blur", () => this.hide());
+    this.on("blur", this.onBlur.bind(this));
+  }
+  onBlur() {
+    this.hide();
   }
 }
 
