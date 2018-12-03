@@ -12,13 +12,19 @@ import {
 // have been added and are pending conversion
 export const addVideos = videos => dispatch => {
   ipcRenderer.send("videos:added", videos);
+  ipcRenderer.on("metadata:complete", (event, videoMetadata) => {
+    dispatch({ type: ADD_VIDEOS, payload: videoMetadata });
+  });
 };
 
 // TODO: Communicate to MainWindow that the user wants
 // to start converting videos.  Also listen for feedback
 // from the MainWindow regarding the current state of
 // conversion.
-export const convertVideos = () => (dispatch, getState) => {};
+export const convertVideos = () => (dispatch, getState) => {
+  const { videos } = getState();
+  ipcRenderer.send("conversion:start", videos);
+};
 
 // TODO: Open the folder that the newly created video
 // exists in
